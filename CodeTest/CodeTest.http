@@ -1,6 +1,6 @@
 @CodeTest_HostAddress = http://localhost:5263
 
-GET {{CodeTest_HostAddress}}/weatherforecast/
+GET {{CodeTest_HostAddress}}/person/1
 Accept: application/json
 
 ###

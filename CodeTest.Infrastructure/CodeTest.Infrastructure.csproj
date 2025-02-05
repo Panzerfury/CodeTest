@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CodeTest.Application\CodeTest.Application.csproj" />
+      <ProjectReference Include="..\CodeTest.Shared\CodeTest.Shared.csproj" />
     </ItemGroup>
 
 </Project>
