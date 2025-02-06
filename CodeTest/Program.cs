@@ -36,6 +36,9 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 // Register individual exception handlers for specific exceptions
 builder.Services.AddExceptionHandler<ProblemExceptionHandler>();
 
+builder.Services.AddDatabaseContext();
+builder.Services.AddRepositories();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
