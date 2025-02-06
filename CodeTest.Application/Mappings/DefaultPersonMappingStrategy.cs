@@ -4,7 +4,7 @@ using CodeTest.Shared.Contracts;
 
 namespace CodeTest.Application.Mappings;
 
-public class DefaultPersonMappingStrategy : IPersonMappingStrategy
+public class DefaultPersonMappingStrategy : IMappingStrategy<StarWarsPersonResponse?, PersonDto?>
 {
     public PersonDto? Map(StarWarsPersonResponse? apiPerson)
     {

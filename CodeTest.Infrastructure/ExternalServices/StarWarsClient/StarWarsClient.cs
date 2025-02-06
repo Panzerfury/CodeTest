@@ -6,7 +6,7 @@ using CodeTest.Shared.Contracts;
 
 namespace CodeTest.Infrastructure.ExternalServices.StarWarsClient;
 
-public class StarWarsClient(HttpClient httpClient, IPersonMappingStrategy mappingStrategy) : IStarWarsClient
+public class StarWarsClient(HttpClient httpClient, IMappingStrategy<StarWarsPersonResponse?, PersonDto?> mappingStrategy) : IStarWarsClient
 {
     public async Task<PersonDto?> GetPersonAsync(int id)
     {

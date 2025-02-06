@@ -1,6 +1,8 @@
 using CodeTest.Application;
 using CodeTest.Application.CQRS.Behaviors;
 using CodeTest.Application.CQRS.Persons.Queries;
+using CodeTest.Application.CQRS.Starships.Commands;
+using CodeTest.Endpoints;
 using CodeTest.ExceptionHandlers;
 using CodeTest.Infrastructure;
 using FluentValidation;
@@ -15,7 +17,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddMappings();
 builder.Services.AddExternalHttpClient();
-
 builder.Services.AddProblemDetails(options =>
 {
     options.CustomizeProblemDetails = context =>
@@ -32,10 +33,8 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavi
 builder.Services.AddValidatorsFromAssemblyContaining<GetPersonQueryValidator>();
 // Register the validation pipeline behavior
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-
 // Register individual exception handlers for specific exceptions
 builder.Services.AddExceptionHandler<ProblemExceptionHandler>();
-
 builder.Services.AddDatabaseContext();
 builder.Services.AddRepositories();
 
@@ -50,14 +49,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseExceptionHandler();
 
-// Minimal API endpoint to fetch person by ID
-app.MapGet("/person/{id:int}", async (int id, IMediator mediator) =>
-    {
-        var query = new GetPersonQuery { Id = id };
-
-        var person = await mediator.Send(query);
-        return person;
-    })
-    .WithName("GetPerson");
+app.AddPersonEndpoints();
+app.AddStarshipEndpoints();
 
 app.Run();

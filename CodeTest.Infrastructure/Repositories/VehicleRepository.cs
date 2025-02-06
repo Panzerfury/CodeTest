@@ -1,12 +1,14 @@
 ﻿using CodeTest.Application.Interfaces.Repositories;
 using CodeTest.Domain.Entities;
+using CodeTest.Infrastructure.Data;
 
 namespace CodeTest.Infrastructure.Repositories;
 
-public class VehicleRepository : IVehicleRepository
+public class VehicleRepository(MyAppDbContext context) : IVehicleRepository
 {
-    public Task AddAsync(Vehicle vehicle)
+    public async Task AddAsync(Vehicle vehicle)
     {
-        throw new NotImplementedException();
+        context.Vehicles.Add(vehicle);
+        await context.SaveChangesAsync();
     }
 }
