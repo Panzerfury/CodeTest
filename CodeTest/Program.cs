@@ -2,6 +2,7 @@ using CodeTest.Application;
 using CodeTest.Application.CQRS.Behaviors;
 using CodeTest.Application.CQRS.Persons.Queries;
 using CodeTest.Application.CQRS.Starships.Commands;
+using CodeTest.Domain;
 using CodeTest.Endpoints;
 using CodeTest.ExceptionHandlers;
 using CodeTest.Infrastructure;
@@ -37,6 +38,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 builder.Services.AddExceptionHandler<ProblemExceptionHandler>();
 builder.Services.AddDatabaseContext();
 builder.Services.AddRepositories();
+builder.Services.AddProcessors();
 
 var app = builder.Build();
 
@@ -51,5 +53,6 @@ app.UseExceptionHandler();
 
 app.AddPersonEndpoints();
 app.AddStarshipEndpoints();
+app.AddApproveMissionEndpoints();
 
 app.Run();
